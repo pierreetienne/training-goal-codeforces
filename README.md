@@ -4,9 +4,9 @@
 
 ## Crear template en el editor de jetbrains 
 
-- En el menu de preferences 
+- En el menu de **Preferences** 
   - En la opción **File and Code Template**
-  - 
+    - En **Files** crear un nuevo tipo **Name: go-cf** y **Extension: go**. Luego pegar el **Ejemplo de template** y listo.
 ---
   
 

@@ -10,7 +10,12 @@
 
 Ejemplo de template:
 
-Este template define funciones utiles para la lectura estandar de los ejercicios de CodeForces utilizando el lenguaje de programación GO.
+Este template define funciones utiles para la lectura estándar de los ejercicios de CodeForces utilizando el lenguaje de programación GO.
+
+Si seguiste los pasos para crear un template podras crear un archivo nuevo, solo necesitas hacer clic derecho sobre el proyecto de GO y luego crear un nuevo archivo **go-cf** este tipo de archivo te solicitara la información del **USER** en el cual puedes ingresar tu nombre de usuario en CodeForces, **NAME** en el cual podrás definir el nombre del archivo que vas a crear y por último el campo **URL** donde podrás agrega la url de enlace al ejercicio que vas a resolver.
+
+
+**HAPPY CODING :)**
 
 ```
 package ${GO_PACKAGE_NAME}
@@ -70,7 +75,7 @@ func (in *${NAME}) NextString() string {
 /**
 Run solve the problem ${NAME}
 Date: ${DATE}
-User: pepradere
+User: ${USER}
 URL: ${URL}
 Problem: ${NAME}
 **/

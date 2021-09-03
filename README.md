@@ -8,7 +8,7 @@
 ---
   
 
-###Ejemplo de template:
+### Ejemplo de template:
 
 Este template define funciones utiles para la lectura estándar de los ejercicios de CodeForces utilizando el lenguaje de programación GO.
 

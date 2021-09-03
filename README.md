@@ -1,6 +1,4 @@
-# training-goal-codeforces
-
-
+# Entrenamiento CodeForces
 
 ## Crear template en el editor de jetbrains 
 
@@ -10,18 +8,20 @@
 ---
   
 
-Ejemplo de template
+Ejemplo de template:
+
+Este template define funciones utiles para la lectura estandar de los ejercicios de CodeForces utilizando el lenguaje de programación GO.
 
 ```
 package ${GO_PACKAGE_NAME}
 
 import (
-  "bufio"
-  "fmt"
-  "os"
-  "sort"
-  "strconv"
-  "strings"
+        "bufio"
+        "fmt"
+        "os"
+        "sort"
+        "strconv"
+        "strings"
 )
 type ${NAME} struct {
   sc        *bufio.Reader

@@ -1,55 +1,56 @@
 package main
 
 import (
-        "bufio"
-        "fmt"
-        "os"
-        "sort"
-        "strconv"
-        "strings"
+	"bufio"
+	"fmt"
+	"os"
+	"sort"
+	"strconv"
+	"strings"
 )
+
 type CF946A struct {
-  sc        *bufio.Reader
-  split     []string
-  index     int
-  separator string
+	sc        *bufio.Reader
+	split     []string
+	index     int
+	separator string
 }
 
 func (in *CF946A) GetLine() string {
-  line, err := in.sc.ReadString('\n')
-  if err != nil {
-  fmt.Println("error line:", line, " err: ", err)
-  }
-  in.split = []string{}
-  in.index = 0
-  return line
+	line, err := in.sc.ReadString('\n')
+	if err != nil {
+		fmt.Println("error line:", line, " err: ", err)
+	}
+	in.split = []string{}
+	in.index = 0
+	return line
 }
 func (in *CF946A) load() {
-  if len(in.split) <= in.index {
-  in.split = strings.Split(in.GetLine(), in.separator)
-  in.index = 0
-  }
+	if len(in.split) <= in.index {
+		in.split = strings.Split(in.GetLine(), in.separator)
+		in.index = 0
+	}
 }
 
 func (in *CF946A) NextInt() int {
-  in.load()
-  val, _ := strconv.Atoi(strings.TrimSpace(in.split[in.index]))
-  in.index++
-  return val
+	in.load()
+	val, _ := strconv.Atoi(strings.TrimSpace(in.split[in.index]))
+	in.index++
+	return val
 }
 
 func (in *CF946A) NextInt64() int64 {
-  in.load()
-  val, _ := strconv.ParseInt(strings.TrimSpace(in.split[in.index]), 10, 64)
-  in.index++
-  return val
+	in.load()
+	val, _ := strconv.ParseInt(strings.TrimSpace(in.split[in.index]), 10, 64)
+	in.index++
+	return val
 }
 
 func (in *CF946A) NextString() string {
-  in.load()
-  val := strings.TrimSpace(in.split[in.index])
-  in.index++
-  return val
+	in.load()
+	val := strings.TrimSpace(in.split[in.index])
+	in.index++
+	return val
 }
 
 /**
@@ -59,19 +60,37 @@ User: pepradere
 URL: https://codeforces.com/problemset/problem/946/A
 Problem: CF946A
 **/
-func (in *CF946A) Run(){
+func (in *CF946A) Run() {
+	n := in.NextInt()
+	arr := make([]int, n)
+	for i := 0; i < n; i++ {
+		arr[i] = in.NextInt()
+	}
 
+	sort.Ints(arr)
+
+	A := 0
+	B := 0
+	for i := 0; i < n; i++ {
+		if arr[i] < 0 {
+			A += arr[i]
+		} else {
+			B += arr[i]
+		}
+	}
+
+	fmt.Println(B - A)
 }
 
 func NewCF946A(r *bufio.Reader) *CF946A {
-  return &CF946A{
-  sc:        r,
-  split:     []string{},
-  index:     0,
-  separator: " ",
-  }
+	return &CF946A{
+		sc:        r,
+		split:     []string{},
+		index:     0,
+		separator: " ",
+	}
 }
 
 func main() {
-  NewCF946A(bufio.NewReader(os.Stdin)).Run()
+	NewCF946A(bufio.NewReader(os.Stdin)).Run()
 }

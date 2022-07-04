@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -63,68 +62,50 @@ Problem: CF1681A
 func (in *CF1681A) Run() {
 	for t := in.NextInt(); t > 0; t-- {
 		n := in.NextInt()
-		a := make([]int, n)
+		nums := make([]int, 51)
 		for i := 0; i < n; i++ {
-			a[i] = in.NextInt()
+			nums[in.NextInt()]++
 		}
 		m := in.NextInt()
-		b := make([]int, m)
+
+		b := make([]int, 51)
 		for i := 0; i < m; i++ {
-			b[i] = in.NextInt()
+			b[in.NextInt()]++
 		}
-		sort.Ints(a)
-		sort.Ints(b)
-		x := simu(a, b)
+
+		x := false
+		y := false
+		for i := 50; i >= 0; i-- {
+			if b[i] > 0 && nums[i] > 0 {
+				x = true
+				y = false
+				break
+			}
+			if b[i] > 0 && nums[i] == 0 {
+				y = false
+				x = false
+				break
+			}
+
+			if b[i] == 0 && nums[i] > 0 {
+				y = true
+				x = true
+				break
+			}
+		}
+
 		if x {
 			fmt.Println("Alice")
 		} else {
 			fmt.Println("Bob")
 		}
 
-		x = simu(b, a)
-		if x {
+		if y {
 			fmt.Println("Alice")
 		} else {
 			fmt.Println("Bob")
 		}
 	}
-}
-
-func simu(a, b []int) bool {
-
-	j := 0
-	i := 0
-	c := a[i]
-	i++
-	for i < len(a) && j < len(b) {
-		x := c
-		for j < len(b) {
-			if b[j] > c {
-				c = b[j]
-				break
-			}
-			j++
-		}
-		if x == c {
-			return true
-		}
-
-		x = c
-		for i < len(a) {
-			if a[i] > c {
-				c = a[i]
-				break
-			}
-			i++
-		}
-		if x == c {
-			return false
-		}
-		i=0
-		j=0
-	}
-
-	return false
 }
 
 func NewCF1681A(r *bufio.Reader) *CF1681A {

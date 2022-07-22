@@ -53,6 +53,7 @@ func (in *CF1701B) NextString() string {
 }
 
 /**
+gopherbots maybe could be hard 62 ms aprox to 100ms
 Run solve the problem CF1701B
 Date: 18/07/22
 User: pepradere

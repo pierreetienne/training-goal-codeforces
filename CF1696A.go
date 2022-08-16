@@ -61,12 +61,17 @@ Problem: CF1696A
 **/
 func (in *CF1696A) Run() {
 	for t := in.NextInt(); t > 0; t-- {
-		n, _ := in.NextInt(), in.NextInt()
-		arr := make([]int, n)
+		n, z := in.NextInt(), in.NextInt()
 
+		ans := 0
 		for i := 0; i < n; i++ {
-			arr[i] = in.NextInt()
+			val := in.NextInt()
+			if (z | val) > ans {
+				ans = z | val
+			}
 		}
+
+		fmt.Println(ans)
 	}
 }
 

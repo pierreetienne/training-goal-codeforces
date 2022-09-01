@@ -61,15 +61,15 @@ URL: CodeJamRoundB
 Problem: A
 **/
 
-var arr []int
+var aarr []int
 
 func (in *A) Run() {
 	ca := 1
 	for t := in.NextInt(); t > 0; t-- {
 		n := in.NextInt()
-		arr = make([]int, n)
+		aarr = make([]int, n)
 		for i := 0; i < n; i++ {
-			arr[i] = in.NextInt()
+			aarr[i] = in.NextInt()
 		}
 
 		ans := F(0, n-1, 0)
@@ -83,19 +83,19 @@ func F(i, j, max int) int {
 
 	if i < len(arr) && j >= 0 && i <= j {
 		sum := 0
-		if arr[i] <= max {
+		if aarr[i] <= max {
 			sum = 1
 		}
 
-		valA := F(i+1, j, int(math.Max(float64(arr[i]), float64(max)))) + sum
+		valA := F(i+1, j, int(math.Max(float64(aarr[i]), float64(max)))) + sum
 		fmt.Println("valA ", valA, i, j, max)
 
 		sum = 0
-		if arr[j] <= max {
+		if aarr[j] <= max {
 			sum = 1
 		}
 
-		valB := F(i, j-1, int(math.Max(float64(arr[j]), float64(max)))) + sum
+		valB := F(i, j-1, int(math.Max(float64(aarr[j]), float64(max)))) + sum
 		fmt.Println("valB ", valB, i, j, max)
 
 		if valA > valB {

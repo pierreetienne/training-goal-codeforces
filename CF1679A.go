@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -63,13 +62,31 @@ Problem: CF1679A
 func (in *CF1679A) Run() {
 	for t := in.NextInt(); t > 0; t-- {
 		n := in.NextInt64()
-		if n%2 != 0 && n < 4 {
+		min := int64(0)
+		max := int64(0)
+		a := n / 4
+		llantasSobrantes := n - (a * 4)
+		if llantasSobrantes == 2 || llantasSobrantes == 0 {
+			max = a
+			min = a
+		} else {
+			max = 0
+		}
+
+		b := n / 6
+		llantasSobrantes = n - (b * 6)
+		if llantasSobrantes == 2 || llantasSobrantes == 4 {
+			min = b + 1
+		} else if llantasSobrantes == 0 {
+			min = b
+		}
+
+		if min == 0 || max == 0 {
 			fmt.Println(-1)
 		} else {
-			max := int64(math.Ceil(float64(n) / 4.))
-			min := int64(math.Ceil(float64(n) / 6.))
 			fmt.Println(min, max)
 		}
+
 	}
 }
 

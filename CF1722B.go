@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,26 @@ URL: https://codeforces.com/problemset/problem/1722/B
 Problem: CF1722B
 **/
 func (in *CF1722B) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n := in.NextInt()
+		a := in.NextString()
+		b := in.NextString()
 
+		equals := true
+		for i := 0; i < n; i++ {
+			if a[i] == b[i] || (a[i] == 'G' && b[i] == 'B') || (a[i] == 'B' && b[i] == 'G') {
+				continue
+			} else {
+				equals = false
+			}
+		}
+
+		if equals {
+			fmt.Println("YES")
+		} else {
+			fmt.Println("NO")
+		}
+	}
 }
 
 func NewCF1722B(r *bufio.Reader) *CF1722B {

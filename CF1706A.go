@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -54,6 +53,7 @@ func (in *CF1706A) NextString() string {
 }
 
 /**
+Ez for gopherbots 60 ms 
 Run solve the problem CF1706A
 Date: 22/07/22
 User: pepradere
@@ -61,7 +61,42 @@ URL: https://codeforces.com/problemset/problem/1706/A
 Problem: CF1706A
 **/
 func (in *CF1706A) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n, m := in.NextInt(), in.NextInt()
+		arr := make([]int, n)
+		mapa := make(map[int]bool)
+		for i := 0; i < n; i++ {
+			arr[i] = in.NextInt()
+		}
 
+		for i := 0; i < n; i++ {
+			a := arr[i]
+			b := m + 1 - arr[i]
+			_, eA := mapa[a]
+			_, eB := mapa[b]
+
+			if a < b && !eA {
+				mapa[a] = true
+			} else if b < a && !eB {
+				mapa[b] = true
+			} else if !eA {
+				mapa[a] = true
+			} else {
+				mapa[b] = true
+			}
+		}
+
+		var ans strings.Builder
+		for i := 0; i < m; i++ {
+			if _, e := mapa[i+1]; e {
+				ans.WriteString("A")
+			} else {
+				ans.WriteString("B")
+			}
+		}
+
+		fmt.Println(ans.String())
+	}
 }
 
 func NewCF1706A(r *bufio.Reader) *CF1706A {

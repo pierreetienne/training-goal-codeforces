@@ -54,8 +54,13 @@ func (in *CF1733A) NextString() string {
 
 /**
 Run solve the problem CF1733A
+<<<<<<< HEAD
+Date: 23/09/22
+User: pepradere
+=======
 Date: 9/25/2022
 User: wotan
+>>>>>>> bcdd92fb626331b04c61a6afffaaba4417bd145d
 URL: https://codeforces.com/problemset/problem/1733/A
 Problem: CF1733A
 **/
@@ -75,8 +80,8 @@ func (in *CF1733A) Run() {
 		for i := 0; i < k; i++ {
 			sum += arr[i]
 		}
-
 		fmt.Println(sum)
+
 	}
 }
 

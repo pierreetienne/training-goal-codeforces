@@ -3,8 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +61,19 @@ URL: https://codeforces.com/problemset/problem/1729/A
 Problem: CF1729A
 **/
 func (in *CF1729A) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		a, b, c := in.NextInt(), in.NextInt(), in.NextInt()
+		diffA := a
 
+		diffB := int(math.Abs(float64(b)-float64(c))) + c
+		if diffA == diffB {
+			fmt.Println(3)
+		} else if diffA < diffB {
+			fmt.Println(1)
+		} else {
+			fmt.Println(2)
+		}
+	}
 }
 
 func NewCF1729A(r *bufio.Reader) *CF1729A {

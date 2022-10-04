@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,21 @@ URL: https://codeforces.com/problemset/problem/888/A
 Problem: CF888A
 **/
 func (in *CF888A) Run() {
+	n := in.NextInt()
+	arr := make([]int, n)
+	for i := 0; i < n; i++ {
+		arr[i] = in.NextInt()
+	}
+	ans := 0
+	for i := 1; i < n-1; i++ {
+		if arr[i-1] < arr[i] && arr[i] > arr[i+1] {
+			ans++
+		} else if arr[i-1] > arr[i] && arr[i] < arr[i+1] {
+			ans++
+		}
+	}
 
+	fmt.Println(ans)
 }
 
 func NewCF888A(r *bufio.Reader) *CF888A {

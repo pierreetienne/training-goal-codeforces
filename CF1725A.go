@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,12 @@ URL: https://codeforces.com/problemset/problem/1725/A
 Problem: CF1725A
 **/
 func (in *CF1725A) Run() {
-
+	n, m := in.NextInt(), in.NextInt()
+	sol := (m - 1) * n
+	if m == 1 {
+		sol = n - 1
+	}
+	fmt.Println(sol)
 }
 
 func NewCF1725A(r *bufio.Reader) *CF1725A {

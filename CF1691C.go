@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,35 @@ URL: https://codeforces.com/problemset/problem/1691/C
 Problem: CF1691C
 **/
 func (in *CF1691C) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n, k := in.NextInt(), in.NextInt64()
+		ones := make([]int, 0)
 
+		str := in.NextString()
+		for i := 0; i < n; i++ {
+			val := str[i] - '0'
+			if val == 1 {
+				ones = append(ones, i)
+			}
+		}
+
+		ans := "0"
+		last := ones[len(ones)-1] + 1
+
+		diff := n - last
+		if int64(diff) > k {
+			a := len(ones)
+			b := a + (a / 10)
+			ans = fmt.Sprintf("+%d%d", b, a)
+		} else {
+			a := len(ones)
+			b := (a - 1) + (a / 10)
+			ans = fmt.Sprintf("%d%d", b, a)
+		}
+
+		fmt.Println(ans)
+
+	}
 }
 
 func NewCF1691C(r *bufio.Reader) *CF1691C {

@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,39 @@ URL: https://codeforces.com/problemset/problem/1739/B
 Problem: CF1739B
 **/
 func (in *CF1739B) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n := in.NextInt()
+		arr := make([]int, n)
+		for i := 0; i < n; i++ {
+			arr[i] = in.NextInt()
+		}
+		sol := make([]int, n)
+		sol[0] = arr[0]
+		ans := true
+		for i := 1; i < n; i++ {
+			a := sol[i-1] + arr[i]
+			b := sol[i-1] - arr[i]
+			if a >= 0 && b >= 0 && a != b {
+				ans = false
+				break
+			} else {
+				if a >= 0 {
+					sol[i] = a
+				} else {
+					sol[i] = b
+				}
+			}
+		}
 
+		if ans {
+			for i := 0; i < n; i++ {
+				fmt.Print(sol[i], " ")
+			}
+			fmt.Println()
+		} else {
+			fmt.Println(-1)
+		}
+	}
 }
 
 func NewCF1739B(r *bufio.Reader) *CF1739B {

@@ -61,7 +61,80 @@ URL: https://codeforces.com/problemset/problem/1689/A
 Problem: CF1689A
 **/
 func (in *CF1689A) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n, m, k := in.NextInt(), in.NextInt(), in.NextInt()
+		g := in.NextString()
+		h := in.NextString()
 
+		a := make([]uint8, n)
+		b := make([]uint8, m)
+
+		for i := 0; i < n; i++ {
+			a[i] = g[i]
+		}
+
+		sort.Slice(a, func(i, j int) bool {
+			if a[i] < a[j] {
+				return true
+			}
+			return false
+		})
+
+		for i := 0; i < m; i++ {
+			b[i] = h[i]
+		}
+
+		sort.Slice(b, func(i, j int) bool {
+			if b[i] < b[j] {
+				return true
+			}
+			return false
+		})
+
+		sol := ""
+		for i, j, p, q := 0, 0, 0, 0; ; {
+			x := uint8('-')
+			if i < n {
+				x = a[i]
+			}
+
+			y := uint8('-')
+			if j < m {
+				y = b[j]
+			}
+			if x != '-' && y != '-' {
+				if x < y {
+					if p < k {
+						sol += string(rune(x))
+						p++
+						q = 0
+						i++
+					} else {
+						sol += string(rune(y))
+						p = 0
+						q = 1
+						j++
+					}
+				} else {
+					if q < k {
+						sol += string(rune(y))
+						q++
+						j++
+						p = 0
+					} else {
+						sol += string(rune(x))
+						q = 0
+						p = 1
+						i++
+					}
+				}
+			} else {
+				break
+			}
+		}
+		fmt.Println(sol)
+
+	}
 }
 
 func NewCF1689A(r *bufio.Reader) *CF1689A {

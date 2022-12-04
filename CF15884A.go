@@ -8,14 +8,14 @@ import (
 	"strings"
 )
 
-type CF1743B struct {
+type CF15884A struct {
 	sc        *bufio.Reader
 	split     []string
 	index     int
 	separator string
 }
 
-func (in *CF1743B) GetLine() string {
+func (in *CF15884A) GetLine() string {
 	line, err := in.sc.ReadString('\n')
 	if err != nil {
 		fmt.Println("error line:", line, " err: ", err)
@@ -24,28 +24,28 @@ func (in *CF1743B) GetLine() string {
 	in.index = 0
 	return line
 }
-func (in *CF1743B) load() {
+func (in *CF15884A) load() {
 	if len(in.split) <= in.index {
 		in.split = strings.Split(in.GetLine(), in.separator)
 		in.index = 0
 	}
 }
 
-func (in *CF1743B) NextInt() int {
+func (in *CF15884A) NextInt() int {
 	in.load()
 	val, _ := strconv.Atoi(strings.TrimSpace(in.split[in.index]))
 	in.index++
 	return val
 }
 
-func (in *CF1743B) NextInt64() int64 {
+func (in *CF15884A) NextInt64() int64 {
 	in.load()
 	val, _ := strconv.ParseInt(strings.TrimSpace(in.split[in.index]), 10, 64)
 	in.index++
 	return val
 }
 
-func (in *CF1743B) NextString() string {
+func (in *CF15884A) NextString() string {
 	in.load()
 	val := strings.TrimSpace(in.split[in.index])
 	in.index++
@@ -53,34 +53,21 @@ func (in *CF1743B) NextString() string {
 }
 
 /**
-Run solve the problem CF1743B
-Date: 23/10/22
+Run solve the problem CF15884A
+Date: 8/11/22
 User: pepradere
-URL: https://codeforces.com/problemset/problem/1743/B
-Problem: CF1743B
+URL: https://codeforces.com/problemset/problem/1584/A
+Problem: CF15884A
 **/
-func (in *CF1743B) Run() {
-	var ans strings.Builder
+func (in *CF15884A) Run() {
 	for t := in.NextInt(); t > 0; t-- {
-		n := in.NextInt()
-		for i, j := 1, n; i <= j; i++ {
-			val := 0
-			if i == j {
-				val = i
-			} else {
-				val = j
-				ans.WriteString(fmt.Sprintf("%v ", i))
-			}
-			ans.WriteString(fmt.Sprintf("%v ", val))
-			j--
-		}
-		ans.WriteString("\n")
+		u, v := in.NextInt64(), in.NextInt64()
+		fmt.Println(-(u * u), v*v)
 	}
-	fmt.Print(ans.String())
 }
 
-func NewCF1743B(r *bufio.Reader) *CF1743B {
-	return &CF1743B{
+func NewCF15884A(r *bufio.Reader) *CF15884A {
+	return &CF15884A{
 		sc:        r,
 		split:     []string{},
 		index:     0,
@@ -89,5 +76,5 @@ func NewCF1743B(r *bufio.Reader) *CF1743B {
 }
 
 func main() {
-	NewCF1743B(bufio.NewReader(os.Stdin)).Run()
+	NewCF15884A(bufio.NewReader(os.Stdin)).Run()
 }

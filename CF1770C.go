@@ -8,14 +8,14 @@ import (
 	"strings"
 )
 
-type CF1670AA struct {
+type CF1770C struct {
 	sc        *bufio.Reader
 	split     []string
 	index     int
 	separator string
 }
 
-func (in *CF1670AA) GetLine() string {
+func (in *CF1770C) GetLine() string {
 	line, err := in.sc.ReadString('\n')
 	if err != nil {
 		fmt.Println("error line:", line, " err: ", err)
@@ -24,28 +24,28 @@ func (in *CF1670AA) GetLine() string {
 	in.index = 0
 	return line
 }
-func (in *CF1670AA) load() {
+func (in *CF1770C) load() {
 	if len(in.split) <= in.index {
 		in.split = strings.Split(in.GetLine(), in.separator)
 		in.index = 0
 	}
 }
 
-func (in *CF1670AA) NextInt() int {
+func (in *CF1770C) NextInt() int {
 	in.load()
 	val, _ := strconv.Atoi(strings.TrimSpace(in.split[in.index]))
 	in.index++
 	return val
 }
 
-func (in *CF1670AA) NextInt64() int64 {
+func (in *CF1770C) NextInt64() int64 {
 	in.load()
 	val, _ := strconv.ParseInt(strings.TrimSpace(in.split[in.index]), 10, 64)
 	in.index++
 	return val
 }
 
-func (in *CF1670AA) NextString() string {
+func (in *CF1770C) NextString() string {
 	in.load()
 	val := strings.TrimSpace(in.split[in.index])
 	in.index++
@@ -53,51 +53,44 @@ func (in *CF1670AA) NextString() string {
 }
 
 /**
-Run solve the problem CF1670AA
-Date: 12/24/2022
+Run solve the problem CF1770C
+Date: 12/30/2022
 User: wotan
-URL: https://codeforces.com/problemset/problem/1670/A
-Problem: CF1670AA
+URL: https://codeforces.com/contests/1770/C
+Problem: CF1770C
 **/
-func (in *CF1670AA) Run() {
+func (in *CF1770C) Run() {
 	for t := in.NextInt(); t > 0; t-- {
 		n := in.NextInt()
-
-		arr := make([]int, n)
-
-		neg := 0
+		arr := make([]int64, n)
 		for i := 0; i < n; i++ {
-			arr[i] = in.NextInt()
-			if arr[i] < 0 {
-				neg++
-			}
+			arr[i] = in.NextInt64()
 		}
 
-		pos := neg
-		for i := 0; i < n; i++ {
-			if arr[i] > 0 && neg > 0 {
-				neg--
-				arr[i] = -arr[i]
+		x := int64(1)
+		ans := true
+		for x < 8601 {
+			for i := 1; i < n && ans; i++ {
+				for j := 0; j < i && ans; j++ {
+					//fmt.Println(i, j, x, gcd(arr[i]+x, arr[j]+x), arr[i], arr[j])
+					if gcd(arr[i]+x, arr[j]+x) != 1 {
+						ans = false
+					}
+				}
+
 			}
+			if ans {
+				break
+			}
+
+			x++
+			if x < 8601 {
+				ans = true
+			}
+
 		}
 
-		pos -= neg
-		for i := n - 1; i >= 0; i-- {
-			if arr[i] < 0 && pos > 0 {
-				pos--
-				arr[i] = -arr[i]
-			}
-		}
-
-		last := -10000000000
-		isOrdered := true
-		for i := 0; i < n; i++ {
-			if last > arr[i] {
-				isOrdered = false
-			}
-			last = arr[i]
-		}
-		if isOrdered {
+		if ans {
 			fmt.Println("YES")
 		} else {
 			fmt.Println("NO")
@@ -105,8 +98,15 @@ func (in *CF1670AA) Run() {
 	}
 }
 
-func NewCF1670AA(r *bufio.Reader) *CF1670AA {
-	return &CF1670AA{
+func gcd(a, b int64) int64 {
+	if b == 0 {
+		return a
+	}
+	return gcd(b, a%b)
+}
+
+func NewCF1770C(r *bufio.Reader) *CF1770C {
+	return &CF1770C{
 		sc:        r,
 		split:     []string{},
 		index:     0,
@@ -115,5 +115,5 @@ func NewCF1670AA(r *bufio.Reader) *CF1670AA {
 }
 
 func main() {
-	NewCF1670AA(bufio.NewReader(os.Stdin)).Run()
+	NewCF1770C(bufio.NewReader(os.Stdin)).Run()
 }

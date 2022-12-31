@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,30 @@ URL: https://codeforces.com/problemset/problem/1695/A
 Problem: CF1695A
 **/
 func (in *CF1695A) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n, m := in.NextInt(), in.NextInt()
+		max := -1000000001
+		x, y := -1, -1
+		for i := 0; i < n; i++ {
+			for j := 0; j < m; j++ {
+				val := in.NextInt()
+				if val > max {
+					max = val
+					x = i
+					y = j
+				}
+			}
+		}
 
+		fmt.Println(maxi(n-x, x+1) * maxi(m-y, y+1))
+	}
+}
+
+func maxi(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 func NewCF1695A(r *bufio.Reader) *CF1695A {

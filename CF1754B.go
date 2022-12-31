@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,26 @@ URL: https://codeforces.com/problemset/problem/1754/B
 Problem: CF1754B
 **/
 func (in *CF1754B) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n := in.NextInt()
+		r, s := 0, 1
+		if n%2 != 0 {
+			r = ((n - 1) / 2) + 1
+		} else {
+			r = (n / 2) + 1
+		}
 
+		for r <= n {
+			if r == n && n%2 != 0 {
+				fmt.Print(r, " ")
+			} else {
+				fmt.Print(r, s, " ")
+			}
+			r++
+			s++
+		}
+		fmt.Println()
+	}
 }
 
 func NewCF1754B(r *bufio.Reader) *CF1754B {

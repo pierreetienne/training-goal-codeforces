@@ -3,8 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +61,29 @@ URL: https://codeforces.com/problemset/problem/1642/A
 Problem: CF1642A
 **/
 func (in *CF1642A) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		m := make([][]float64, 3)
+		m[0] = []float64{
+			float64(in.NextInt()), float64(in.NextInt()),
+		}
+		m[1] = []float64{
+			float64(in.NextInt()), float64(in.NextInt()),
+		}
+		m[2] = []float64{
+			float64(in.NextInt()), float64(in.NextInt()),
+		}
+		ans := 0.0
 
+		if m[0][1] == m[1][1] && m[0][1] > m[2][1] {
+			ans = math.Abs(m[0][0] - m[1][0])
+		} else if m[0][1] == m[2][1] && m[0][1] > m[1][1] {
+			ans = math.Abs(m[0][0] - m[2][0])
+		} else if m[1][1] == m[2][1] && m[1][1] > m[0][1] {
+			ans = math.Abs(m[1][0] - m[2][0])
+		}
+
+		fmt.Printf("%f\n", ans)
+	}
 }
 
 func NewCF1642A(r *bufio.Reader) *CF1642A {

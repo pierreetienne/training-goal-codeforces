@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -54,6 +53,7 @@ func (in *CF1722C) NextString() string {
 }
 
 /**
+gopherbots ez time limit 100ms
 Run solve the problem CF1722C
 Date: 9/3/2022
 User: wotan
@@ -61,7 +61,47 @@ URL: https://codeforces.com/problemset/problem/1722/C
 Problem: CF1722C
 **/
 func (in *CF1722C) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n := in.NextInt()
+		mapas := make([]map[string]bool, 3)
 
+		for i := 0; i < 3; i++ {
+			mapas[i] = make(map[string]bool)
+		}
+
+		sol := make([]int, 3)
+
+		for i := 0; i < 3; i++ {
+			for j := 0; j < n; j++ {
+				str := in.NextString()
+				mapas[i][str] = true
+			}
+		}
+
+		for i := 0; i < 3; i++ {
+			for str := range mapas[i] {
+				points := 3
+				count := 0
+				for j := 0; j < 3; j++ {
+					if j != i {
+						_, e := mapas[j][str]
+						if e {
+							count++
+						}
+					}
+				}
+				if count == 2 {
+					points = 0
+				} else if count == 1 {
+					points = 1
+				}
+				sol[i] += points
+			}
+		}
+
+		fmt.Println(sol[0], sol[1], sol[2])
+
+	}
 }
 
 func NewCF1722C(r *bufio.Reader) *CF1722C {

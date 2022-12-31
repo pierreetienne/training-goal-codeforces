@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,6 +60,10 @@ URL: Test
 Problem: Testa
 **/
 func (in *Testa) Run() {
+	str := "codeforces"
+	for i := 0; i < len(str); i++ {
+		fmt.Println(int(str[i] - 'a'))
+	}
 
 }
 

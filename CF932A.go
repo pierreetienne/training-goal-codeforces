@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -54,6 +53,7 @@ func (in *CF932A) NextString() string {
 }
 
 /**
+Gopherbots NEWWWWW ez manejo slices
 Run solve the problem CF932A
 Date: 11/29/2022
 User: wotan
@@ -61,7 +61,20 @@ URL: https://codeforces.com/problemset/problem/932/A
 Problem: CF932A
 **/
 func (in *CF932A) Run() {
+	str := in.NextString()
 
+	i := 0
+	j := len(str) - 1
+	for i < j {
+		if str[i] != str[j] {
+			str = str[0:j+1] + string(str[i]) + str[j+1:]
+			j++
+		} else {
+			j--
+			i++
+		}
+	}
+	fmt.Println(str)
 }
 
 func NewCF932A(r *bufio.Reader) *CF932A {

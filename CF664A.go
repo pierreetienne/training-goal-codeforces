@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,12 @@ URL: https://codeforces.com/problemset/problem/664/A
 Problem: CF664A
 **/
 func (in *CF664A) Run() {
-
+	a, b := in.NextString(), in.NextString()
+	if a == b {
+		fmt.Println(a)
+	} else {
+		fmt.Println(1)
+	}
 }
 
 func NewCF664A(r *bufio.Reader) *CF664A {

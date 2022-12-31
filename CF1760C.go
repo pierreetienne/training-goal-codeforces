@@ -61,7 +61,25 @@ URL: https://codeforces.com/problemset/problem/1760/C
 Problem: CF1760C
 **/
 func (in *CF1760C) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n := in.NextInt()
 
+		arr := make([]int, n)
+		arr2 := make([]int, n)
+		for i := 0; i < n; i++ {
+			arr[i] = in.NextInt()
+			arr2[i] = arr[i]
+		}
+		sort.Ints(arr2)
+		for i := 0; i < n; i++ {
+			if arr[i] == arr2[n-1] {
+				fmt.Print(arr[i]-arr2[n-2], " ")
+			} else {
+				fmt.Print(arr[i]-arr2[n-1], " ")
+			}
+		}
+		fmt.Println()
+	}
 }
 
 func NewCF1760C(r *bufio.Reader) *CF1760C {

@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -53,6 +52,8 @@ func (in *CF1654B) NextString() string {
 	return val
 }
 
+var mapa map[uint8]int
+
 /**
 Run solve the problem CF1654B
 Date: 9/18/2022
@@ -61,7 +62,54 @@ URL: https://codeforces.com/problemset/problem/1654/B
 Problem: CF1654B
 **/
 func (in *CF1654B) Run() {
+	var ans strings.Builder
+	for t := in.NextInt(); t > 0; t-- {
+		mapa = map[uint8]int{}
+		str := in.NextString()
+		for i := 0; i < len(str); i++ {
+			mapa[str[i]]++
+		}
+		for maxp := maxPrefix(str); maxp != -1; {
+			str = str[maxp:]
+			maxp = maxPrefix(str)
 
+		}
+		ans.WriteString(str + "\n")
+	}
+	fmt.Print(ans.String())
+}
+
+func maxPrefix(str string) int {
+	pre := false
+	str += "-"
+	preMap := map[uint8]int{}
+	for i := 1; i < len(str); i++ {
+		preMap[str[i-1]]++
+		if exist(preMap) {
+			mapa[str[i-1]]--
+			pre = true
+			continue
+		} else {
+			if pre {
+				return i - 1
+			}
+			break
+		}
+	}
+	return -1
+}
+
+func exist(preMap map[uint8]int) bool {
+	for k, v := range preMap {
+		value, e := mapa[k]
+		if !e {
+			return false
+		}
+		if value <= v {
+			return false
+		}
+	}
+	return true
 }
 
 func NewCF1654B(r *bufio.Reader) *CF1654B {

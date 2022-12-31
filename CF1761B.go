@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,25 @@ URL: https://codeforces.com/problemset/problem/1761/B
 Problem: CF1761B
 **/
 func (in *CF1761B) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n := in.NextInt()
+		mapa := make(map[int]int)
+		for i := 0; i < n; i++ {
+			val := in.NextInt()
+			mapa[val]++
 
+		}
+		if n == 1 {
+			fmt.Println(1)
+		} else {
+
+			ans := n
+			if len(mapa) == 2 {
+				ans = (n / 2) + 1
+			}
+			fmt.Println(ans)
+		}
+	}
 }
 
 func NewCF1761B(r *bufio.Reader) *CF1761B {

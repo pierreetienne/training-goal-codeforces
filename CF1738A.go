@@ -61,7 +61,75 @@ URL: https://codeforces.com/problemset/problem/1738/A
 Problem: CF1738A
 **/
 func (in *CF1738A) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n := in.NextInt()
+		a := make([][]int, n)
+		for i := 0; i < n; i++ {
+			a[i] = make([]int, 2)
+			a[i][0] = in.NextInt()
+		}
+		for i := 0; i < n; i++ {
+			a[i][1] = in.NextInt()
+		}
 
+		sort.Slice(a, func(i, j int) bool {
+			if a[i][1] < a[j][1] {
+				return true
+			}
+			return false
+		})
+		zeros := make([][]int, 0)
+		ones := make([][]int, 0)
+		for i := 0; i < n; i++ {
+			if a[i][0] == 0 {
+				zeros = append(zeros, a[i])
+			} else {
+				ones = append(ones, a[i])
+			}
+		}
+
+		sum := 0
+		if len(zeros) == len(ones) {
+			if zeros[0][1] < ones[0][1] {
+				sum = zeros[0][1]
+				for i := 1; i < len(zeros); i++ {
+					sum += zeros[i][1] * 2
+				}
+				for i := 0; i < len(ones); i++ {
+					sum += ones[i][1] * 2
+				}
+			} else {
+				sum = ones[0][1]
+				for i := 0; i < len(zeros); i++ {
+					sum += zeros[i][1] * 2
+				}
+				for i := 1; i < len(ones); i++ {
+					sum += ones[i][1] * 2
+				}
+			}
+		} else if len(zeros) > len(ones) {
+			for i := 0; i < len(zeros)-len(ones); i++ {
+				sum += zeros[i][1]
+			}
+			for i := len(zeros) - len(ones); i < len(zeros); i++ {
+				sum += zeros[i][1] * 2
+			}
+			for i := 0; i < len(ones); i++ {
+				sum += ones[i][1] * 2
+			}
+		} else {
+			for i := 0; i < len(ones)-len(zeros); i++ {
+				sum += ones[i][1]
+			}
+			for i := len(ones) - len(zeros); i < len(ones); i++ {
+				sum += ones[i][1] * 2
+			}
+			for i := 0; i < len(zeros); i++ {
+				sum += zeros[i][1] * 2
+			}
+		}
+		fmt.Println(sum)
+	}
 }
 
 func NewCF1738A(r *bufio.Reader) *CF1738A {

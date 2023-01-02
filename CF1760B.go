@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,19 @@ URL: https://codeforces.com/problemset/problem/1760/B
 Problem: CF1760B
 **/
 func (in *CF1760B) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n := in.NextInt()
+		str := in.NextString()
+		max := 0
+		for i := 0; i < n; i++ {
+			v := int(str[i] - 'a')
+			if v > max {
+				max = v
+			}
+		}
+		fmt.Println(max + 1)
 
+	}
 }
 
 func NewCF1760B(r *bufio.Reader) *CF1760B {

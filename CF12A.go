@@ -8,14 +8,14 @@ import (
 	"strings"
 )
 
-type CF932A struct {
+type CF12A struct {
 	sc        *bufio.Reader
 	split     []string
 	index     int
 	separator string
 }
 
-func (in *CF932A) GetLine() string {
+func (in *CF12A) GetLine() string {
 	line, err := in.sc.ReadString('\n')
 	if err != nil {
 		fmt.Println("error line:", line, " err: ", err)
@@ -24,28 +24,28 @@ func (in *CF932A) GetLine() string {
 	in.index = 0
 	return line
 }
-func (in *CF932A) load() {
+func (in *CF12A) load() {
 	if len(in.split) <= in.index {
 		in.split = strings.Split(in.GetLine(), in.separator)
 		in.index = 0
 	}
 }
 
-func (in *CF932A) NextInt() int {
+func (in *CF12A) NextInt() int {
 	in.load()
 	val, _ := strconv.Atoi(strings.TrimSpace(in.split[in.index]))
 	in.index++
 	return val
 }
 
-func (in *CF932A) NextInt64() int64 {
+func (in *CF12A) NextInt64() int64 {
 	in.load()
 	val, _ := strconv.ParseInt(strings.TrimSpace(in.split[in.index]), 10, 64)
 	in.index++
 	return val
 }
 
-func (in *CF932A) NextString() string {
+func (in *CF12A) NextString() string {
 	in.load()
 	val := strings.TrimSpace(in.split[in.index])
 	in.index++
@@ -53,32 +53,46 @@ func (in *CF932A) NextString() string {
 }
 
 /**
-Gopherbots NEWWWWW ez manejo slices
-Run solve the problem CF932A
-Date: 11/29/2022
+Run solve the problem CF12A
+Date: 12/24/2022
 User: wotan
-URL: https://codeforces.com/problemset/problem/932/A
-Problem: CF932A
+URL: https://codeforces.com/problemset/problem/12/A
+Problem: CF12A
 **/
-func (in *CF932A) Run() {
+func (in *CF12A) Run() {
+	m := make([]uint8, 9)
+	index := 0
 	str := in.NextString()
-
-	i := 0
-	j := len(str) - 1
-	for i < j {
-		if str[i] != str[j] {
-			str = str[0:j+1] + string(str[i]) + str[j+1:]
-			j++
-		} else {
-			j--
-			i++
-		}
+	for i := 0; i < 3; i++ {
+		m[index] = str[i]
+		index++
 	}
-	fmt.Println(str)
+	str = in.NextString()
+	for i := 0; i < 3; i++ {
+		m[index] = str[i]
+		index++
+	}
+	str = in.NextString()
+	for i := 0; i < 3; i++ {
+		m[index] = str[i]
+		index++
+	}
+	ans := true
+	for i, j := 0, 8; i < j; i++ {
+		if m[i] != m[j] {
+			ans = false
+		}
+		j--
+	}
+	if ans {
+		fmt.Println("YES")
+	} else {
+		fmt.Println("NO")
+	}
 }
 
-func NewCF932A(r *bufio.Reader) *CF932A {
-	return &CF932A{
+func NewCF12A(r *bufio.Reader) *CF12A {
+	return &CF12A{
 		sc:        r,
 		split:     []string{},
 		index:     0,
@@ -87,5 +101,5 @@ func NewCF932A(r *bufio.Reader) *CF932A {
 }
 
 func main() {
-	NewCF932A(bufio.NewReader(os.Stdin)).Run()
+	NewCF12A(bufio.NewReader(os.Stdin)).Run()
 }

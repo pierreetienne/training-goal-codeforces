@@ -61,7 +61,19 @@ URL: https://codeforces.com/problemset/problem/202/A
 Problem: CF202A
 **/
 func (in *CF202A) Run() {
-
+	str := in.NextString()
+	arr := make([]int, len(str))
+	for i := 0; i < len(arr); i++ {
+		arr[i] = int(str[i])
+	}
+	sort.Ints(arr)
+	var ans strings.Builder
+	for i := len(arr) - 1; i >= 0; i-- {
+		if arr[i] == arr[len(arr)-1] {
+			ans.WriteString(fmt.Sprintf("%v", string(rune(arr[i]))))
+		}
+	}
+	fmt.Println(ans.String())
 }
 
 func NewCF202A(r *bufio.Reader) *CF202A {

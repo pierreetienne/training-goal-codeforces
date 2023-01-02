@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,40 @@ URL:
 Problem: Test123
 **/
 func (in *Test123) Run() {
+	n := in.NextInt()
+	sol := ""
+	for i := 0; i < n; i++ {
+		sol += fmt.Sprintf("%d\n", solve3(in.NextInt(), in))
+	}
+	fmt.Println(sol)
+}
 
+func solve3(n int, in *Test123) int {
+	countOnes := 0
+	base := 0
+	indexFirstZero := -1
+	indexLastOne := -1
+	for i := 0; i < n; i++ {
+		s := in.NextInt()
+		if s == 0 {
+			if indexFirstZero == -1 {
+				indexFirstZero = i
+			}
+			base = base + countOnes
+		} else {
+			indexLastOne = i
+			countOnes++
+		}
+	}
+
+	return max(max(base, base-indexFirstZero+(n-countOnes-1)), base+(countOnes-1)-(n-(indexLastOne+1)))
+}
+
+func max(a int, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 func NewTest123(r *bufio.Reader) *Test123 {

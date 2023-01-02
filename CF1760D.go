@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,43 @@ URL: https://codeforces.com/problemset/problem/1760/D
 Problem: CF1760D
 **/
 func (in *CF1760D) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		nL := in.NextInt()
+		arr := make([]int, 0)
+		last := -1
 
+		for i := 0; i < nL; i++ {
+			val := in.NextInt()
+			if last != val {
+				arr = append(arr, val)
+			}
+			last = val
+		}
+		n := len(arr)
+
+		valley := 0
+		for i := 0; i < n; i++ {
+			if i == 0 && i+1 < n {
+				if arr[i+1] > arr[i] {
+					valley++
+				}
+			} else if i == n-1 && i-1 >= 0 {
+				if arr[i-1] > arr[i] {
+					valley++
+				}
+			} else {
+				if i-1 >= 0 && i < n && arr[i-1] > arr[i] && arr[i+1] > arr[i] {
+					valley++
+				}
+			}
+		}
+
+		if valley == 1 || len(arr) == 1 {
+			fmt.Println("YES")
+		} else {
+			fmt.Println("NO")
+		}
+	}
 }
 
 func NewCF1760D(r *bufio.Reader) *CF1760D {

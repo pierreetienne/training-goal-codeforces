@@ -61,7 +61,11 @@ URL: https://codeforces.com/problemset/problem/1760/A
 Problem: CF1760A
 **/
 func (in *CF1760A) Run() {
-
+	for t := in.NextInt(); t > 0; t-- {
+		arr := []int{in.NextInt(), in.NextInt(), in.NextInt()}
+		sort.Ints(arr)
+		fmt.Println(arr[1])
+	}
 }
 
 func NewCF1760A(r *bufio.Reader) *CF1760A {

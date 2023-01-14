@@ -1,4 +1,4 @@
-	package main
+package main
 
 import (
 	"bufio"
@@ -60,11 +60,12 @@ URL: https://codeforces.com/problemset/problem/1475/A
 Problem: CF1475A
 **/
 func (in *CF1475A) Run() {
-	for t:=in.NextInt();t>0; t--{
+	for t := in.NextInt(); t > 0; t-- {
 		n := in.NextInt64()
-		if n%2 == 0 {
+
+		if n&(n-1) == 0 {
 			fmt.Println("NO")
-		}else{
+		} else {
 			fmt.Println("YES")
 		}
 	}

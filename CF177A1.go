@@ -8,14 +8,14 @@ import (
 	"strings"
 )
 
-type CF748A struct {
+type CF177A1 struct {
 	sc        *bufio.Reader
 	split     []string
 	index     int
 	separator string
 }
 
-func (in *CF748A) GetLine() string {
+func (in *CF177A1) GetLine() string {
 	line, err := in.sc.ReadString('\n')
 	if err != nil {
 		fmt.Println("error line:", line, " err: ", err)
@@ -24,28 +24,28 @@ func (in *CF748A) GetLine() string {
 	in.index = 0
 	return line
 }
-func (in *CF748A) load() {
+func (in *CF177A1) load() {
 	if len(in.split) <= in.index {
 		in.split = strings.Split(in.GetLine(), in.separator)
 		in.index = 0
 	}
 }
 
-func (in *CF748A) NextInt() int {
+func (in *CF177A1) NextInt() int {
 	in.load()
 	val, _ := strconv.Atoi(strings.TrimSpace(in.split[in.index]))
 	in.index++
 	return val
 }
 
-func (in *CF748A) NextInt64() int64 {
+func (in *CF177A1) NextInt64() int64 {
 	in.load()
 	val, _ := strconv.ParseInt(strings.TrimSpace(in.split[in.index]), 10, 64)
 	in.index++
 	return val
 }
 
-func (in *CF748A) NextString() string {
+func (in *CF177A1) NextString() string {
 	in.load()
 	val := strings.TrimSpace(in.split[in.index])
 	in.index++
@@ -53,41 +53,42 @@ func (in *CF748A) NextString() string {
 }
 
 /**
-Run solve the problem CF748A
-Date: 1/4/2023
+Run solve the problem CF177A1
+Date: 1/13/2023
 User: wotan
-URL: https://codeforces.com/problemset/problem/748/A
-Problem: CF748A
+URL: https://codeforces.com/problemset/problem/177/A1
+Problem: CF177A1
 **/
-func (in *CF748A) Run() {
-	_, m, k := in.NextInt(), in.NextInt(), in.NextInt()
-	lane := 1
-	desk := 1
-	for {
-		if lane*(m*2) < k {
-			lane++
-
-		} else {
-			for i := (lane-1)*(m*2) - 1; i <= (lane)*(m*2); i += 2 {
-				if k != i && k != i+1 {
-					desk++
-				} else {
-					break
-				}
-			}
-			break
+func (in *CF177A1) Run() {
+	n := in.NextInt()
+	m := make([][]int, n)
+	for i := 0; i < n; i++ {
+		m[i] = make([]int, n)
+		for j := 0; j < n; j++ {
+			m[i][j] = in.NextInt()
 		}
 	}
-
-	side := 'L'
-	if k%2 == 0 {
-		side = 'R'
+	sum := 0
+	for i := 0; i < n; i++ {
+		sum += m[i][i]
+		m[i][i] = 0
+		sum += m[n-i-1][i]
+		m[n-i-1][i] = 0
 	}
-	fmt.Println(lane, desk-1, string(side))
+
+	for i := 0; i < n; i++ {
+		sum += m[i][(n-1)/2]
+
+		m[i][(n-1)/2] = 0
+		sum += m[(n-1)/2][i]
+		m[(n-1)/2][i] = 0
+	}
+
+	fmt.Println(sum)
 }
 
-func NewCF748A(r *bufio.Reader) *CF748A {
-	return &CF748A{
+func NewCF177A1(r *bufio.Reader) *CF177A1 {
+	return &CF177A1{
 		sc:        r,
 		split:     []string{},
 		index:     0,
@@ -96,5 +97,5 @@ func NewCF748A(r *bufio.Reader) *CF748A {
 }
 
 func main() {
-	NewCF748A(bufio.NewReader(os.Stdin)).Run()
+	NewCF177A1(bufio.NewReader(os.Stdin)).Run()
 }

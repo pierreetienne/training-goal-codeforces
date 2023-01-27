@@ -3,8 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +61,17 @@ URL: https://codeforces.com/problemset/problem/1250/F
 Problem: CF1250F
 **/
 func (in *CF1250F) Run() {
+	n := in.NextInt()
 
+	min := n*n + 1000
+	to := int(math.Sqrt(float64(n)))
+	for i := 1; i <= to; i++ {
+		v := n / i
+		if v*i == n {
+			min = int(math.Min(float64(2*v+2*i), float64(min)))
+		}
+	}
+	fmt.Println(min)
 }
 
 func NewCF1250F(r *bufio.Reader) *CF1250F {

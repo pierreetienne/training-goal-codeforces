@@ -3,8 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +61,59 @@ URL: https://codeforces.com/contests/1779/B
 Problem: CF1779B
 **/
 func (in *CF1779B) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n := in.NextInt()
+		if n == 2 {
+			fmt.Println("YES")
+			fmt.Println("9 5")
+		} else {
 
+			arr := make([]int, n)
+
+			if n%2 == 0 {
+				for i := 0; i < n; i++ {
+					if i%2 == 0 {
+						arr[i] = 1
+					} else {
+						arr[i] = -1
+					}
+				}
+			} else {
+				a := int(math.Floor(float64(n) / 2))
+				for i := 0; i < n; i++ {
+					if i%2 == 0 {
+						arr[i] = -(a - 1)
+					} else {
+						arr[i] = a
+					}
+				}
+			}
+
+			ans := true
+			sum := 0
+			var sol strings.Builder
+			for i := 0; i < n; i++ {
+				sum += arr[i]
+				sol.WriteString(fmt.Sprintf("%d ", arr[i]))
+			}
+
+			for i := 0; i < n-1; i++ {
+				if arr[i]+arr[i+1] != sum || arr[i] == 0 {
+					//	fmt.Println("sum ", sum, arr[i], " suma vecinos  ", arr[i]+arr[i+1])
+					ans = false
+					break
+				}
+			}
+
+			if ans {
+				fmt.Println("YES")
+				fmt.Println(sol.String())
+			} else {
+				fmt.Println("NO")
+			}
+
+		}
+	}
 }
 
 func NewCF1779B(r *bufio.Reader) *CF1779B {

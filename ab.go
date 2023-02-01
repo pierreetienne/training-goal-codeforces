@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -61,7 +60,39 @@ URL: ab
 Problem: ab
 **/
 func (in *ab) Run() {
+	for t := in.NextInt(); t > 0; t-- {
+		n := in.NextInt()
+		str := in.NextString()
+		fmt.Println(solve(str, n))
+	}
+}
 
+func solve(str string, n int) string {
+
+	lastResult := int(str[0] - '0')
+	//operationDiff := 0
+	//operationAdd := 0
+	var b strings.Builder
+
+	for cont2 := 1; cont2 < n; cont2++ {
+		element := int(str[cont2] - '0')
+		//operationDiff = lastResult - element
+		//operationAdd =
+
+		if lastResult-element == -1 {
+			lastResult = lastResult + element
+			b.WriteString("+")
+			continue
+		}
+		if lastResult-element < lastResult+element {
+			lastResult = lastResult - element
+			b.WriteString("-")
+			continue
+		}
+		b.WriteString("+")
+		lastResult = lastResult + element
+	}
+	return b.String()
 }
 
 func Newab(r *bufio.Reader) *ab {

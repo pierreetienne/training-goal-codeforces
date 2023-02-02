@@ -8,14 +8,14 @@ import (
 	"strings"
 )
 
-type CF1779A struct {
+type CF99A struct {
 	sc        *bufio.Reader
 	split     []string
 	index     int
 	separator string
 }
 
-func (in *CF1779A) GetLine() string {
+func (in *CF99A) GetLine() string {
 	line, err := in.sc.ReadString('\n')
 	if err != nil {
 		fmt.Println("error line:", line, " err: ", err)
@@ -24,28 +24,28 @@ func (in *CF1779A) GetLine() string {
 	in.index = 0
 	return line
 }
-func (in *CF1779A) load() {
+func (in *CF99A) load() {
 	if len(in.split) <= in.index {
 		in.split = strings.Split(in.GetLine(), in.separator)
 		in.index = 0
 	}
 }
 
-func (in *CF1779A) NextInt() int {
+func (in *CF99A) NextInt() int {
 	in.load()
 	val, _ := strconv.Atoi(strings.TrimSpace(in.split[in.index]))
 	in.index++
 	return val
 }
 
-func (in *CF1779A) NextInt64() int64 {
+func (in *CF99A) NextInt64() int64 {
 	in.load()
 	val, _ := strconv.ParseInt(strings.TrimSpace(in.split[in.index]), 10, 64)
 	in.index++
 	return val
 }
 
-func (in *CF1779A) NextString() string {
+func (in *CF99A) NextString() string {
 	in.load()
 	val := strings.TrimSpace(in.split[in.index])
 	in.index++
@@ -53,40 +53,30 @@ func (in *CF1779A) NextString() string {
 }
 
 /**
-Run solve the problem CF1779A
-Date: 3/01/23
+Run solve the problem CF99A
+Date: 28/01/23
 User: pepradere
-URL: https://codeforces.com/contests/1779/A
-Problem: CF1779A
+URL: https://codeforces.com/problemset/problem/99/A
+Problem: CF99A
 **/
-func (in *CF1779A) Run() {
-	for t := in.NextInt(); t > 0; t-- {
-		n := in.NextInt()
-		str := in.NextString()
-		L := 0
-		R := 0
-		for i := 0; i < n; i++ {
-			if str[i] == 'L' {
-				L++
-			} else {
-				R++
-			}
+func (in *CF99A) Run() {
+	str := strings.Split(in.NextString(), ".")
+
+	if str[0][len(str[0])-1] != '9' {
+
+		if str[1][0] >= '5' {
+			fmt.Println(str[0][0:len(str[0])-1] + string(rune(str[0][len(str[0])-1]+1)))
+		} else {
+			fmt.Println(str[0])
 		}
 
-		if L == n || R == n {
-			fmt.Println(-1)
-		} else if index := strings.Index(str, "LR"); index != -1 {
-			fmt.Println(index + 1)
-		} else if index := strings.Index(str, "RL"); index != -1 {
-			fmt.Println(0)
-		} else {
-			fmt.Println(-1)
-		}
+	} else {
+		fmt.Println("GOTO Vasilisa.")
 	}
 }
 
-func NewCF1779A(r *bufio.Reader) *CF1779A {
-	return &CF1779A{
+func NewCF99A(r *bufio.Reader) *CF99A {
+	return &CF99A{
 		sc:        r,
 		split:     []string{},
 		index:     0,
@@ -95,5 +85,5 @@ func NewCF1779A(r *bufio.Reader) *CF1779A {
 }
 
 func main() {
-	NewCF1779A(bufio.NewReader(os.Stdin)).Run()
+	NewCF99A(bufio.NewReader(os.Stdin)).Run()
 }

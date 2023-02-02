@@ -1,77 +1,58 @@
 package main
 
 import (
-        "bufio"
-        "fmt"
-        "os"
-        "sort"
-        "strconv"
-        "strings"
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
 )
-type Test5 struct {
-  sc        *bufio.Reader
-  split     []string
-  index     int
-  separator string
+
+var sc = bufio.NewScanner(os.Stdin)
+var wr = bufio.NewWriter(os.Stdout)
+
+func out(x ...interface{}) {
+	fmt.Fprint(wr, x...)
 }
 
-func (in *Test5) GetLine() string {
-  line, err := in.sc.ReadString('\n')
-  if err != nil {
-  fmt.Println("error line:", line, " err: ", err)
-  }
-  in.split = []string{}
-  in.index = 0
-  return line
-}
-func (in *Test5) load() {
-  if len(in.split) <= in.index {
-  in.split = strings.Split(in.GetLine(), in.separator)
-  in.index = 0
-  }
+func nextInt() int {
+	i, e := strconv.Atoi(next())
+	if e != nil {
+		panic(e)
+	}
+	return i
 }
 
-func (in *Test5) NextInt() int {
-  in.load()
-  val, _ := strconv.Atoi(strings.TrimSpace(in.split[in.index]))
-  in.index++
-  return val
+func nextInt64() int64 {
+	i, e := strconv.ParseInt(next(), 10, 64)
+	if e != nil {
+		panic(e)
+	}
+	return i
 }
 
-func (in *Test5) NextInt64() int64 {
-  in.load()
-  val, _ := strconv.ParseInt(strings.TrimSpace(in.split[in.index]), 10, 64)
-  in.index++
-  return val
-}
-
-func (in *Test5) NextString() string {
-  in.load()
-  val := strings.TrimSpace(in.split[in.index])
-  in.index++
-  return val
-}
-
-/**
-Run solve the problem Test5
-Date: 5/01/23
-User: pepradere
-URL: test
-Problem: Test5
-**/
-func (in *Test5) Run(){
-
-}
-
-func NewTest5(r *bufio.Reader) *Test5 {
-  return &Test5{
-  sc:        r,
-  split:     []string{},
-  index:     0,
-  separator: " ",
-  }
+func next() string {
+	sc.Scan()
+	return sc.Text()
 }
 
 func main() {
-  NewTest5(bufio.NewReader(os.Stdin)).Run()
+	defer wr.Flush()
+	sc.Buffer(make([]byte, 0), 10000009)
+	sc.Split(bufio.ScanWords)
+
+	n := nextInt()
+	m := make([][]int, n)
+	for i := 0; i < n; i++ {
+		m[i] = make([]int, n)
+		for j := 0; j < n; j++ {
+			m[i][j] = nextInt()
+		}
+	}
+	solve(n, m)
+
+}
+
+func solve(n int, m [][]int) {
+	// Solution
+	out("solution\n", m)
 }
